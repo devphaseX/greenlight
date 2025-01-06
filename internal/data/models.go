@@ -20,11 +20,16 @@ type MovieStore interface {
 
 type Models struct {
 	Movies MovieStore
+	Users  UserStore
 }
 
 func NewModels(db *sql.DB) *Models {
 	return &Models{
 		Movies: MovieModel{
+			db,
+		},
+
+		Users: UserModel{
 			db,
 		},
 	}
