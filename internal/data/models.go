@@ -21,6 +21,7 @@ type MovieStore interface {
 type Models struct {
 	Movies MovieStore
 	Users  UserStore
+	Tokens TokenStore
 }
 
 func NewModels(db *sql.DB) *Models {
@@ -30,6 +31,10 @@ func NewModels(db *sql.DB) *Models {
 		},
 
 		Users: UserModel{
+			db,
+		},
+
+		Tokens: TokenModel{
 			db,
 		},
 	}
