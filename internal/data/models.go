@@ -10,18 +10,11 @@ var (
 	ErrEditConflict   = errors.New("edit conflict")
 )
 
-type MovieStore interface {
-	Insert(movie *Movie) error
-	Get(id int64) (*Movie, error)
-	GetAll(title string, genres []string, filters Filters) ([]*Movie, Metadata, error)
-	Update(movie *Movie) error
-	Delete(id int64) error
-}
-
 type Models struct {
-	Movies MovieStore
-	Users  UserStore
-	Tokens TokenStore
+	Movies      MovieStore
+	Users       UserStore
+	Tokens      TokenStore
+	Permissions PermissionStore
 }
 
 func NewModels(db *sql.DB) *Models {
@@ -35,6 +28,10 @@ func NewModels(db *sql.DB) *Models {
 		},
 
 		Tokens: TokenModel{
+			db,
+		},
+
+		Permissions: PermissionModel{
 			db,
 		},
 	}

@@ -12,6 +12,14 @@ import (
 	"github.com/lib/pq"
 )
 
+type MovieStore interface {
+	Insert(movie *Movie) error
+	Get(id int64) (*Movie, error)
+	GetAll(title string, genres []string, filters Filters) ([]*Movie, Metadata, error)
+	Update(movie *Movie) error
+	Delete(id int64) error
+}
+
 type Movie struct {
 	ID        int64     `json:"id"` // Unique integer ID for the movie
 	CreatedAt time.Time `json:"-"`  // Timestamp for when the movie is added to our database
